@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pokemon/constants/app_images.dart';
 import 'package:pokemon/presentation/bloc/pokemon_bloc.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,7 +18,6 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
                 itemCount:state.pokemonList.length,
                 itemBuilder:(context,index){
                   return ListTile(
-                    leading: Image.asset('assets/images/pokemon/${state.pokemonList[index].name}.png'),
+                    leading:Image.asset(images[state.pokemonList[index].name]!),
                     title: Text('${state.pokemonList[index].name}'),
                   );
                 });

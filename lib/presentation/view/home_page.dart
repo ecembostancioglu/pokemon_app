@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pokemon/constants/app_colors.dart';
-import 'package:pokemon/constants/app_images.dart';
 import 'package:pokemon/presentation/bloc/pokemon_bloc.dart';
 import 'package:pokemon/presentation/view/character_detail_page.dart';
 import 'package:pokemon/widgets/character_card.dart';
@@ -25,7 +24,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(toolbarHeight:100.h,
+      appBar: AppBar(
+        toolbarHeight:100.h,
         backgroundColor:blue,
         title: Center(
             child: Image.asset('assets/images/logo/pokemon_logo.png',

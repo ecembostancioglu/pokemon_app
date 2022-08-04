@@ -18,13 +18,27 @@ class CharacterCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GridTile(
       child: Padding(
-        padding: EdgeInsets.all(6.h),
+        padding: EdgeInsets.all(4.h),
         child: Card(
+        shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),),
           elevation: 8,
-          child: Column(
+          child: Stack(
             children: [
-              Image.asset('${images[state.pokemonList[index].name]}',height:150.h),
-              Text('${state.pokemonList[index].name}',style: TextStyle(fontSize: 20.sp,color:blue),)
+              Positioned(top:-30,right:-30,
+                child: Image.asset('assets/images/logo/pokeball_dark.png',
+                    color: gray,
+                    height: 100.h,width: 100.w),
+              ),
+              Center(
+                child: Column(
+                  children: [
+                    Image.asset('${images[state.pokemonList[index].name]}',height:135.h),
+                    Text('${state.pokemonList[index].name}',
+                      style: TextStyle(fontSize: 20.sp,color:blue))
+                  ],
+                ),
+              ),
             ],
           ),
         ),

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pokemon/constants/app_colors.dart';
-import 'package:pokemon/presentation/bloc/pokemon_bloc.dart';
+import 'package:pokemon/constants/app_images.dart';
+import 'package:pokemon/presentation/pokemon_bloc/pokemon_bloc.dart';
 import 'package:pokemon/presentation/view/character_detail_page.dart';
 import 'package:pokemon/widgets/character_card.dart';
 
@@ -19,6 +20,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     BlocProvider.of<PokemonBloc>(context).add(GetPokemonNameEvent());
     super.initState();
+
   }
 
   @override
@@ -44,7 +46,10 @@ class _HomePageState extends State<HomePage> {
                   return GestureDetector(
                     onTap: (){
                       Navigator.push(context, MaterialPageRoute(
-                          builder: (context)=>CharacterDetailPage()));
+                          builder: (context)=>CharacterDetailPage(
+                              name: state.pokemonList[index].name.toString(),
+                              pokemon:images[state.pokemonList[index].name]!,
+                              url: state.pokemonList[index].url.toString())));
                     },
                       child: CharacterCard(state,index));
               },

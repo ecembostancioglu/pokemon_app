@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pokemon/constants/app_colors.dart';
 import 'package:pokemon/constants/app_images.dart';
 import 'package:pokemon/presentation/bloc/pokemon_bloc.dart';
+import 'package:pokemon/presentation/view/character_detail_page.dart';
 import 'package:pokemon/widgets/character_card.dart';
 
 class HomePage extends StatefulWidget {
@@ -24,7 +26,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(toolbarHeight:100.h,
-        backgroundColor:Color(0xff141a31),
+        backgroundColor:blue,
         title: Center(
             child: Image.asset('assets/images/logo/pokemon_logo.png',
                 height: 180.h,alignment: Alignment.center)),
@@ -35,20 +37,23 @@ class _HomePageState extends State<HomePage> {
             return GridView.builder(
               gridDelegate:const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                crossAxisSpacing:20,
-                mainAxisSpacing: 20,
               ) ,
               shrinkWrap: true,
               itemCount:state.pokemonList.length,
               itemBuilder: (context, index) {
-                  return CharacterCard(state,index);
+                  return GestureDetector(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(
+                          builder: (context)=>CharacterDetailPage()));
+                    },
+                      child: CharacterCard(state,index));
               },
             );
           }
           return const Center(
            child: CircularProgressIndicator(),
            );
-        }
+         }
         ) ,
     );
   }

@@ -4,10 +4,10 @@ import 'package:pokemon/domain/model/pokemon.dart';
 
 class AbilitiesClient extends DioClient{
 
-  Future<Iterable<Abilities>> getAbilities()async{
+  Future<Iterable<Abilities>> getAbilities(String url)async{
     Iterable<Abilities> abilities;
 
-    final Response response=await dio.get(baseUrl);
+    final Response response=await dio.get(url);
     List ability=response.data['abilities'];
     abilities=ability.map<Abilities>((e){
       return Abilities.fromJson(e);

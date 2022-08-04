@@ -3,6 +3,7 @@ import 'package:meta/meta.dart';
 import 'package:pokemon/data/repository/abilities_client.dart';
 import 'package:pokemon/data/repository/pokemon_client.dart';
 import 'package:pokemon/domain/model/pokemon.dart';
+import 'package:pokemon/domain/model/results.dart';
 
 part 'pokemon_event.dart';
 part 'pokemon_state.dart';
@@ -10,7 +11,7 @@ part 'pokemon_state.dart';
 class PokemonBloc extends Bloc<PokemonEvent, PokemonState> {
 
   PokemonClient pokemonRepository=PokemonClient();
-  List<Pokemon>? pokemonNameList=[];
+  List<Results>? pokemonNameList=[];
 
   AbilitiesClient abilitiesClient=AbilitiesClient();
   Iterable<Abilities>? abilities=[];
@@ -24,7 +25,7 @@ class PokemonBloc extends Bloc<PokemonEvent, PokemonState> {
     });
 
     on<CharacterFeaturesEvent>((event,emit)async{
-      abilities=await abilitiesClient.getAbilities();
+      abilities=await abilitiesClient.getAbilities(event.url);
       emit(CharacterFeaturesState(abilities: abilities!));
     });
 

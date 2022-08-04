@@ -1,17 +1,17 @@
 import 'package:dio/dio.dart';
 import 'package:pokemon/data/repository/dio_client.dart';
-import 'package:pokemon/domain/model/pokemon.dart';
+import 'package:pokemon/domain/model/results.dart';
 
 class PokemonClient extends DioClient{
 
-  Future<List<Pokemon>>? getFetch() async{
+  Future<List<Results>>? getFetch() async{
 
-    List<Pokemon> pokeList=[];
+    List<Results> pokeList=[];
 
     final Response response = await dio.get(charUrl);
     List poke=response.data['results'] as List;
-    pokeList=poke.map<Pokemon>((e){
-      return Pokemon.fromJson(e);
+    pokeList=poke.map<Results>((e){
+      return Results.fromJson(e);
     }).toList();
 
     for(var pokeName in pokeList){

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pokemon/constants/app_colors.dart';
-import 'package:pokemon/presentation/bloc/pokemon_bloc.dart';
-import 'package:pokemon/presentation/view/home_page.dart';
+import 'package:pokemon/presentation/details_bloc/details_bloc.dart';
+
 
 class CharacterDetailPage extends StatefulWidget {
   const CharacterDetailPage({
@@ -22,10 +22,16 @@ class CharacterDetailPage extends StatefulWidget {
 
 class _CharacterDetailPageState extends State<CharacterDetailPage> {
 
+
   @override
   void initState() {
-    BlocProvider.of<PokemonBloc>(context).add(CharacterFeaturesEvent(widget.url));
+    BlocProvider.of<DetailsBloc>(context).add(GetDetailsEvent(widget.url));
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
@@ -34,10 +40,9 @@ class _CharacterDetailPageState extends State<CharacterDetailPage> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: (){
-        Navigator.pop(context);
-        //  BlocProvider.of<PokemonBloc>(context).add(GetPokemonNameEvent());
+          Navigator.pop(context);
           },
-          icon: Icon(Icons.chevron_left),
+          icon:const Icon(Icons.chevron_left),
         ),
       ),
       body:Column(
@@ -45,7 +50,7 @@ class _CharacterDetailPageState extends State<CharacterDetailPage> {
           Image.asset(widget.pokemon,height:135.h),
           Text(widget.name,
               style: TextStyle(fontSize: 20.sp,color:blue)),
-          BlocBuilder<PokemonBloc,PokemonState>(
+          BlocBuilder<DetailsBloc,DetailsState>(
             builder: (context,state){
               if(state is CharacterFeaturesState){
                 return ListView.builder(

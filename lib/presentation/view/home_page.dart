@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pokemon/constants/app_colors.dart';
 import 'package:pokemon/constants/app_images.dart';
-import 'package:pokemon/presentation/bloc/pokemon_bloc.dart';
+import 'package:pokemon/presentation/pokemon_bloc/pokemon_bloc.dart';
 import 'package:pokemon/presentation/view/character_detail_page.dart';
 import 'package:pokemon/widgets/character_card.dart';
 
@@ -15,17 +15,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  bool isLoading = true;
 
   @override
   void initState() {
-    super.initState();
-   try{
     BlocProvider.of<PokemonBloc>(context).add(GetPokemonNameEvent());
+    super.initState();
 
-   }catch(e){
-    print('Error $e');
-   }
   }
 
   @override
@@ -61,7 +56,7 @@ class _HomePageState extends State<HomePage> {
             );
           }
           return const Center(
-           child: Text('no data'),
+           child: CircularProgressIndicator(),
            );
          }
         ) ,

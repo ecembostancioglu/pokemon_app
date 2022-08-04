@@ -4,6 +4,7 @@ import 'package:pokemon/data/repository/abilities_client.dart';
 import 'package:pokemon/data/repository/pokemon_client.dart';
 import 'package:pokemon/domain/model/pokemon.dart';
 import 'package:pokemon/domain/model/results.dart';
+import 'package:pokemon/presentation/details_bloc/details_bloc.dart';
 
 part 'pokemon_event.dart';
 part 'pokemon_state.dart';
@@ -26,7 +27,6 @@ class PokemonBloc extends Bloc<PokemonEvent, PokemonState> {
 
     on<CharacterFeaturesEvent>((event,emit)async{
       abilities=await abilitiesClient.getAbilities(event.url);
-      emit(CharacterFeaturesState(abilities: abilities!));
     });
 
   }

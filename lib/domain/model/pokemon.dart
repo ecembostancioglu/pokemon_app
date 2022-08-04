@@ -196,7 +196,9 @@ class Types {
 
   Types.fromJson(Map<String, dynamic> json) {
     slot = json['slot'];
-    type = json['type'] != null ? Ability.fromJson(json['type']) : null;
+    type = json['type'] != null
+        ? Ability.fromJson(json['type'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {

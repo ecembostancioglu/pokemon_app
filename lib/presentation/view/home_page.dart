@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pokemon/constants/app_images.dart';
 import 'package:pokemon/presentation/bloc/pokemon_bloc.dart';
+import 'package:pokemon/widgets/character_card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -21,22 +23,31 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      appBar: AppBar(toolbarHeight:100.h,
+        backgroundColor:Color(0xff141a31),
+        title: Center(
+            child: Image.asset('assets/images/logo/pokemon_logo.png',
+                height: 180.h,alignment: Alignment.center)),
+       ),
       body: BlocBuilder<PokemonBloc,PokemonState>(
         builder:(context,state){
-          if(state is GetPokemonNameState){
-            return  ListView.builder(
-                shrinkWrap: true,
-                itemCount:state.pokemonList.length,
-                itemBuilder:(context,index){
-                  return ListTile(
-                    leading:Image.asset(images[state.pokemonList[index].name]!),
-                    title: Text('${state.pokemonList[index].name}'),
-                  );
-                });
-          }return const Center(
-            child: CircularProgressIndicator(),
-          );
+          if(state is GetPokemonNameState) {
+            return GridView.builder(
+              gridDelegate:const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing:20,
+                mainAxisSpacing: 20,
+              ) ,
+              shrinkWrap: true,
+              itemCount:state.pokemonList.length,
+              itemBuilder: (context, index) {
+                  return CharacterCard(state,index);
+              },
+            );
+          }
+          return const Center(
+           child: CircularProgressIndicator(),
+           );
         }
         ) ,
     );

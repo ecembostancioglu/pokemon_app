@@ -10,3 +10,9 @@ class GetPokemonNameState extends PokemonState{
 
   GetPokemonNameState({required this.pokemonList});
 }
+
+class CharacterFeaturesState extends PokemonState{
+  Iterable<Abilities> abilities=[];
+
+  CharacterFeaturesState({required this.abilities});
+}

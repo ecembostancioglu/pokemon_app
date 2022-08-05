@@ -106,9 +106,7 @@ class _FeaturesCardState extends State<FeaturesCard> {
                  builder: (context,state){
                 if(state is LoadingState && isLoading ==true){
                   Timer.periodic(Duration(seconds: 3), (timer) {
-                    setState(() {
                      isLoading=false;
-                    });
                   });
                   return Center(
                     child: CircularProgressIndicator(),

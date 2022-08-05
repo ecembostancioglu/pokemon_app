@@ -46,7 +46,6 @@ class _HomePageState extends State<HomePage> {
               itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: (){
-                      BlocProvider.of<DetailsBloc>(context).add(GetDetailsEvent(state.pokemonList[index].url.toString()));
                       Navigator.push(context, MaterialPageRoute(
                           builder: (context)=>CharacterDetailPage(
                               name: state.pokemonList[index].name.toString(),

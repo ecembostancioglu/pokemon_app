@@ -10,3 +10,9 @@ class CharacterFeaturesState extends DetailsState{
 
   CharacterFeaturesState({required this.abilities});
 }
+
+class LoadingState extends DetailsState{
+  final bool isLoading;
+
+  LoadingState(this.isLoading);
+}

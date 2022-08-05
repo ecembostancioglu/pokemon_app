@@ -18,7 +18,7 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
 
     on<GetDetailsEvent>((event,emit)async{
       abilities=await abilitiesClient.getAbilities(event.url);
-      emit(CharacterFeaturesState(abilities: abilities!));
+      emit(CharacterFeaturesState(abilities: abilities));
     });
   }
 }

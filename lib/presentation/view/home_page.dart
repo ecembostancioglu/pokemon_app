@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pokemon/constants/app_colors.dart';
 import 'package:pokemon/constants/app_images.dart';
+import 'package:pokemon/presentation/details_bloc/details_bloc.dart';
 import 'package:pokemon/presentation/pokemon_bloc/pokemon_bloc.dart';
 import 'package:pokemon/presentation/view/character_detail_page.dart';
 import 'package:pokemon/widgets/character_card.dart';
@@ -45,6 +46,7 @@ class _HomePageState extends State<HomePage> {
               itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: (){
+                      BlocProvider.of<DetailsBloc>(context).add(GetDetailsEvent(state.pokemonList[index].url.toString()));
                       Navigator.push(context, MaterialPageRoute(
                           builder: (context)=>CharacterDetailPage(
                               name: state.pokemonList[index].name.toString(),

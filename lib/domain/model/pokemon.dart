@@ -1,8 +1,6 @@
 class Pokemon {
   List<Abilities>? abilities;
   int? height;
-  int? id;
-  String? name;
   Ability? species;
   List<Stats>? stats;
   List<Types>? types;
@@ -12,8 +10,6 @@ class Pokemon {
       {
         this.abilities,
         this.height,
-        this.id,
-        this.name,
         this.species,
         this.stats,
         this.types,
@@ -27,8 +23,6 @@ class Pokemon {
       });
     }
     height = json['height'];
-    id = json['id'];
-    name = json['name'];
     species =
     json['species'] != null ? Ability.fromJson(json['species']) : null;
     if (json['stats'] != null) {
@@ -53,10 +47,6 @@ class Pokemon {
     }
 
     data['height'] = height;
-
-    data['id'] = id;
-
-    data['name'] = name;
 
     if (species != null) {
       data['species'] = species!.toJson();

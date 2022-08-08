@@ -1,9 +1,12 @@
+
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pokemon/constants/app_colors.dart';
 import 'package:pokemon/presentation/details_bloc/details_bloc.dart';
+import 'package:pokemon/widgets/box.dart';
 
 class FeaturesCard extends StatefulWidget {
   FeaturesCard({
@@ -43,27 +46,10 @@ class _FeaturesCardState extends State<FeaturesCard> {
           ), //NAME
           Column(
             children: [
-              Container(
+              SizedBox(
                 height: 30.h,
                 child: BlocBuilder<DetailsBloc, DetailsState>(
                   builder: (context, state) {
-                    if (state is LoadingState && isLoading == true) {
-                      Timer.periodic(const Duration(seconds: 3), (timer) {
-                        isLoading = false;
-                      });
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    } else if (state is CharacterFeaturesState) {
-                      if (BlocProvider
-                          .of<DetailsBloc>(context)
-                          .abilities
-                          .isEmpty) {
-                        return const Center(
-                          child: Text('No ability'),
-                        );
-                      }
-                    }
                     if (state is CharacterFeaturesState) {
                       return ListView.builder(
                           scrollDirection: Axis.horizontal,
@@ -92,28 +78,11 @@ class _FeaturesCardState extends State<FeaturesCard> {
                         child: CircularProgressIndicator());
                   },
                 ),
-              ),  //ABILITIES
+              ), //ABILITIES
               Container(
                 height: 30.h,
                 child: BlocBuilder<DetailsBloc, DetailsState>(
                   builder: (context, state) {
-                    if (state is LoadingState && isLoading == true) {
-                      Timer.periodic(const Duration(seconds: 3), (timer) {
-                        isLoading = false;
-                      });
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    } else if (state is CharacterFeaturesState) {
-                      if (BlocProvider
-                          .of<DetailsBloc>(context)
-                          .types!
-                          .isEmpty) {
-                        return const Center(
-                          child: Text('No types'),
-                        );
-                      }
-                    }
                     if (state is CharacterFeaturesState) {
                       return ListView.builder(
                           scrollDirection: Axis.horizontal,
@@ -143,6 +112,20 @@ class _FeaturesCardState extends State<FeaturesCard> {
                   },
                 ),
               ), //Types
+              BlocBuilder<DetailsBloc, DetailsState>(
+                builder: (context, state) {
+                  if (state is CharacterFeaturesState) {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Box(state: state,feature: 'Weight',index: 0),
+                        Box(state: state,feature: 'Height',index: 1)
+                      ],
+                    );
+                  }
+                  return CircularProgressIndicator();
+                },
+              )
             ],
           ),
 
@@ -151,3 +134,4 @@ class _FeaturesCardState extends State<FeaturesCard> {
     );
   }
 }
+

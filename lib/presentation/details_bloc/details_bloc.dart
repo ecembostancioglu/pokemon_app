@@ -18,21 +18,24 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
   Iterable<Types>? types=[];
 
   FeaturesClient featuresClient=FeaturesClient();
-  int? weight;
+   List<int> features=[];
 
   DetailsBloc() : super(DetailsInitial()) {
     on<DetailsEvent>((event, emit) {});
 
     on<GetDetailsEvent>((event,emit)async{
       emit(LoadingState(true));
+
       abilities=await abilitiesClient.getAbilities(event.url);
      types=await characteristicClient.getTypes(event.url);
-     weight=await featuresClient.getFeatures(event.url);
+      features=await featuresClient.getFeatures(event.url);
+
       emit(LoadingState(false));
+
       emit(CharacterFeaturesState(
           abilities: abilities,
           types: types!,
-          weight: weight!));
+          features: features));
     });
 
   }

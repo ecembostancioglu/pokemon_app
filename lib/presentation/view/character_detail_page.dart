@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pokemon/constants/app_colors.dart';
+import 'package:pokemon/domain/model/pokemon.dart';
 import 'package:pokemon/presentation/details_bloc/details_bloc.dart';
+import 'package:pokemon/presentation/pokemon_bloc/pokemon_bloc.dart';
 
 
 class CharacterDetailPage extends StatefulWidget {
@@ -98,7 +100,7 @@ class _FeaturesCardState extends State<FeaturesCard> {
           ), //NAME
           Column(
             children: [
-             Container(
+              Container(
                 height: 30.h,
                 child: BlocBuilder<DetailsBloc, DetailsState>(
                   builder: (context, state) {
@@ -147,7 +149,7 @@ class _FeaturesCardState extends State<FeaturesCard> {
                         child: CircularProgressIndicator());
                   },
                 ),
-              ),  //ABILITIES
+              ), //ABILITIES
               Container(
                 height: 30.h,
                 child: BlocBuilder<DetailsBloc, DetailsState>(
@@ -198,6 +200,28 @@ class _FeaturesCardState extends State<FeaturesCard> {
                   },
                 ),
               ), //Types
+              BlocBuilder<DetailsBloc, DetailsState>(
+                builder: (context, state) {
+                  if(state is LoadingState && isLoading == true)
+                 {
+                   Timer.periodic(const Duration(seconds: 3), (timer) {
+                     isLoading = false;
+                   });
+                   return CircularProgressIndicator();
+                 }
+                  if (state is CharacterFeaturesState) {
+                    return Column(
+                      children: [
+                       Text('${state.weight.toString() ?? 'No data' }'),
+
+                      ],
+                    );
+                  }
+
+
+                  return CircularProgressIndicator();
+                },
+              )
             ],
           ),
 

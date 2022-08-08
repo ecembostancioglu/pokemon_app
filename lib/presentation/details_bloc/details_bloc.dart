@@ -1,9 +1,9 @@
 import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:pokemon/data/repository/abilities_client.dart';
 import 'package:pokemon/data/repository/characteristic_client.dart';
+import 'package:pokemon/data/repository/features_client.dart';
 import 'package:pokemon/domain/model/pokemon.dart';
 
 part 'details_event.dart';
@@ -17,6 +17,9 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
   CharacteristicClient characteristicClient=CharacteristicClient();
   Iterable<Types>? types=[];
 
+  FeaturesClient featuresClient=FeaturesClient();
+  int? weight;
+
   DetailsBloc() : super(DetailsInitial()) {
     on<DetailsEvent>((event, emit) {});
 
@@ -24,9 +27,12 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
       emit(LoadingState(true));
       abilities=await abilitiesClient.getAbilities(event.url);
      types=await characteristicClient.getTypes(event.url);
+     weight=await featuresClient.getFeatures(event.url);
       emit(LoadingState(false));
       emit(CharacterFeaturesState(
-          abilities: abilities,types: types!));
+          abilities: abilities,
+          types: types!,
+          weight: weight!));
     });
 
   }

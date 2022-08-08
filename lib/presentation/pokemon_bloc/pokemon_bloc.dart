@@ -17,6 +17,8 @@ class PokemonBloc extends Bloc<PokemonEvent, PokemonState> {
   AbilitiesClient abilitiesClient=AbilitiesClient();
   Iterable<Abilities>? abilities=[];
 
+
+
   PokemonBloc() : super(PokemonInitial()) {
     on<PokemonEvent>((event, emit) {});
 

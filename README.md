@@ -17,3 +17,6 @@ https://pokeapi.co/
 
 
 #  Screenshots
+![home_page](https://user-images.githubusercontent.com/72046458/183534132-bc85f1b4-f019-4be2-8c88-b77fc05fdf46.png)
+![detail_page](https://user-images.githubusercontent.com/72046458/183534147-aed35cdb-9710-4ae1-88b5-1dcc2d1b3090.png)
+

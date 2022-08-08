@@ -28,7 +28,7 @@ class _FeaturesCardState extends State<FeaturesCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 420.h,
+      height:400.h,
       width: ScreenUtil().screenWidth,
       decoration: BoxDecoration(
           color: white,
@@ -37,98 +37,101 @@ class _FeaturesCardState extends State<FeaturesCard> {
               topLeft: Radius.circular(28.r))),
       child: Column(
         children: [
-          Container(
+          Expanded(
             child: Padding(
-              padding: EdgeInsets.all(8.h),
+              padding: EdgeInsets.all(16.h),
               child: Text(widget.name, textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 20.sp, color: blue)),
             ),
           ), //NAME
-          Column(
-            children: [
-              SizedBox(
-                height: 30.h,
-                child: BlocBuilder<DetailsBloc, DetailsState>(
-                  builder: (context, state) {
-                    if (state is CharacterFeaturesState) {
-                      return ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          shrinkWrap: true,
-                          itemCount: state.abilities.length,
-                          itemBuilder: (context, index) {
-                            var data = state.abilities.toList();
-                            return Padding(
-                              padding: const EdgeInsets.all(6),
-                              child: Container(
-                                  width: 100.w,
-                                  decoration: BoxDecoration(
-                                    color: blueShade100,
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(20.r)),
-                                  ),
-                                  child: Center(
-                                      child: Text(
-                                          data[index].ability!.name.toString(),
-                                          textAlign: TextAlign.center))),
-                            );
-                          }
-                      );
-                    }
-                    return const Center(
-                        child: CircularProgressIndicator());
-                  },
-                ),
-              ), //ABILITIES
-              Container(
-                height: 30.h,
-                child: BlocBuilder<DetailsBloc, DetailsState>(
-                  builder: (context, state) {
-                    if (state is CharacterFeaturesState) {
-                      return ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          shrinkWrap: true,
-                          itemCount: state.types.length,
-                          itemBuilder: (context, index) {
-                            var data = state.types.toList();
-                            return Padding(
-                              padding: const EdgeInsets.all(6),
-                              child: Container(
-                                  width: 100.w,
-                                  decoration: BoxDecoration(
-                                    color: yellow,
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(20.r)),
-                                  ),
-                                  child: Center(
-                                      child: Text(
-                                          data[index].type!.name.toString(),
-                                          textAlign: TextAlign.center))),
-                            );
-                          }
-                      );
-                    }
-                    return const Center(
-                        child: CircularProgressIndicator());
-                  },
-                ),
-              ), //Types
-              BlocBuilder<DetailsBloc, DetailsState>(
+        Expanded(
+          flex:4,
+          child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 40.h,
+              child: BlocBuilder<DetailsBloc, DetailsState>(
                 builder: (context, state) {
                   if (state is CharacterFeaturesState) {
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Box(state: state,feature: 'Weight',index: 0),
-                        Box(state: state,feature: 'Height',index: 1)
-                      ],
+                    return ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+                        itemCount: state.abilities.length,
+                        itemBuilder: (context, index) {
+                          var data = state.abilities.toList();
+                          return Padding(
+                            padding: const EdgeInsets.all(6),
+                            child: Container(
+                                width: 100.w,
+                                decoration: BoxDecoration(
+                                  color: blueShade100,
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(20.r)),
+                                ),
+                                child: Center(
+                                    child: Text(
+                                        data[index].ability!.name.toString(),
+                                        textAlign: TextAlign.center))),
+                          );
+                        }
                     );
                   }
-                  return CircularProgressIndicator();
+                  return const Center(
+                      child: CircularProgressIndicator());
                 },
-              )
-            ],
-          ),
-
+              ),
+            ), //ABILITIES
+            SizedBox(
+              height: 40.h,
+              child: BlocBuilder<DetailsBloc, DetailsState>(
+                builder: (context, state) {
+                  if (state is CharacterFeaturesState) {
+                    return ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+                        itemCount: state.types.length,
+                        itemBuilder: (context, index) {
+                          var data = state.types.toList();
+                          return Padding(
+                            padding: const EdgeInsets.all(6),
+                            child: Container(
+                                width: 100.w,
+                                decoration: BoxDecoration(
+                                  color: yellow,
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(20.r)),
+                                ),
+                                child: Center(
+                                    child: Text(
+                                        data[index].type!.name.toString(),
+                                        textAlign: TextAlign.center))),
+                          );
+                        }
+                    );
+                  }
+                  return const Center(
+                      child: CircularProgressIndicator());
+                },
+              ),
+            ), //Types
+            BlocBuilder<DetailsBloc, DetailsState>(
+              builder: (context, state) {
+                if (state is CharacterFeaturesState) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Box(state: state,feature: 'Weight',unit:'Kg',index: 0),
+                      Box(state: state,feature: 'Height',unit:'M',index: 1)
+                    ],
+                  );
+                }
+                return CircularProgressIndicator();
+              },
+            )
+          ],
+      ),
+        )
         ],
       ),
     );

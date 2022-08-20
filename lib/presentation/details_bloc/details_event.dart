@@ -1,9 +1,6 @@
 part of 'details_bloc.dart';
 
-@immutable
-abstract class DetailsEvent {}
-
-class GetDetailsEvent extends DetailsEvent{
-  final String url;
-  GetDetailsEvent(this.url);
+@freezed
+class DetailsEvent with _$DetailsEvent {
+  const factory DetailsEvent.getDetail(String url) = _GetDetailEvent;
 }

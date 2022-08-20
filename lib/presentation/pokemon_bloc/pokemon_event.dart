@@ -1,11 +1,9 @@
 part of 'pokemon_bloc.dart';
 
-@immutable
-abstract class PokemonEvent {}
+@freezed
+class PokemonEvent with _$PokemonEvent {
+  const factory PokemonEvent.getPokemonNameEvent() = _GetPokemonNameEvent;
 
-class GetPokemonNameEvent extends PokemonEvent{}
-
-class CharacterFeaturesEvent extends PokemonEvent{
-  final String url;
-  CharacterFeaturesEvent(this.url);
+  const factory PokemonEvent.characterFeaturesEvent(String url) =
+      _CharacterFeaturesEvent;
 }

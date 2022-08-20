@@ -1,23 +1,12 @@
 part of 'details_bloc.dart';
 
-@immutable
-abstract class DetailsState {}
-
-class DetailsInitial extends DetailsState {}
-
-class CharacterFeaturesState extends DetailsState{
-  Iterable<Abilities> abilities;
-  Iterable<Types> types;
-  List<int> features;
-
-
-  CharacterFeaturesState({
-    required this.abilities,
-    required this.types,
-    required this.features});
-}
-
-class LoadingState extends DetailsState{
-  final bool isLoading;
-  LoadingState(this.isLoading);
+@freezed
+class DetailsState with _$DetailsState {
+  const factory DetailsState.initial() = _DetailStateInitial;
+  const factory DetailsState.loading(bool isLoading) = _DetailStateLoading;
+  const factory DetailsState.success({
+    required Iterable<Abilities> abilities,
+    required Iterable<Types> types,
+    required List<int> features,
+  }) = _DetailStateSuccess;
 }

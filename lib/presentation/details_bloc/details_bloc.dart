@@ -1,42 +1,41 @@
-import 'dart:async';
-import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:pokemon/data/repository/abilities_client.dart';
 import 'package:pokemon/data/repository/characteristic_client.dart';
 import 'package:pokemon/data/repository/features_client.dart';
 import 'package:pokemon/domain/model/pokemon.dart';
 
+part 'details_bloc.freezed.dart';
 part 'details_event.dart';
 part 'details_state.dart';
 
 class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
+  AbilitiesClient abilitiesClient = AbilitiesClient();
+  Iterable<Abilities> abilities = [];
 
-  AbilitiesClient abilitiesClient=AbilitiesClient();
-  Iterable<Abilities> abilities=[];
+  CharacteristicClient characteristicClient = CharacteristicClient();
+  Iterable<Types>? types = [];
 
-  CharacteristicClient characteristicClient=CharacteristicClient();
-  Iterable<Types>? types=[];
+  FeaturesClient featuresClient = FeaturesClient();
+  List<int> features = [];
 
-  FeaturesClient featuresClient=FeaturesClient();
-   List<int> features=[];
+  DetailsBloc() : super(const _DetailStateInitial()) {
+    on<DetailsEvent>((event, emit) {
+      event.when(getDetail: (url) async {
+        emit(const _DetailStateLoading(true));
 
-  DetailsBloc() : super(DetailsInitial()) {
-    on<DetailsEvent>((event, emit) {});
+        abilities = await abilitiesClient.getAbilities(event.url);
+        types = await characteristicClient.getTypes(event.url);
+        features = await featuresClient.getFeatures(event.url);
 
-    on<GetDetailsEvent>((event,emit)async{
-      emit(LoadingState(true));
+        emit(const _DetailStateLoading(false));
 
-      abilities=await abilitiesClient.getAbilities(event.url);
-     types=await characteristicClient.getTypes(event.url);
-      features=await featuresClient.getFeatures(event.url);
-
-      emit(LoadingState(false));
-
-      emit(CharacterFeaturesState(
+        emit(_DetailStateSuccess(
           abilities: abilities,
           types: types!,
-          features: features));
+          features: features,
+        ));
+      });
     });
-
   }
 }

@@ -17,8 +17,8 @@ class PokemonBloc extends Bloc<PokemonEvent, PokemonState> {
   Iterable<Abilities>? abilities = [];
 
   PokemonBloc() : super(const _PokemonStateInitial()) {
-    on<PokemonEvent>((event, emit) {
-      event.when(getPokemonNameEvent: () async {
+    on<PokemonEvent>((event, emit) async {
+      await event.when(getPokemonNameEvent: () async {
         pokemonNameList = await pokemonRepository.getFetch();
         emit(_PokemonStateSuccess(pokemonList: pokemonNameList!));
       }, characterFeaturesEvent: (url) async {

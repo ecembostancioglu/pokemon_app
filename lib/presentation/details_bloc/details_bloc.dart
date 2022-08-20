@@ -20,8 +20,8 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
   List<int> features = [];
 
   DetailsBloc() : super(const _DetailStateInitial()) {
-    on<DetailsEvent>((event, emit) {
-      event.when(getDetail: (url) async {
+    on<DetailsEvent>((event, emit) async {
+      await event.when(getDetail: (url) async {
         emit(const _DetailStateLoading(true));
 
         abilities = await abilitiesClient.getAbilities(event.url);

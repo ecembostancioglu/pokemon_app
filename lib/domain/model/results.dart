@@ -1,18 +1,15 @@
-class Results {
-  String? name;
-  String? url;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  Results({this.name, this.url});
+part 'results.freezed.dart';
+part 'results.g.dart';
 
-  Results.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    url = json['url'];
-  }
+@freezed
+class Results with _$Results {
+  const factory Results({
+    String? name,
+    String? url,
+  }) = _Results;
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['name'] = name;
-    data['url'] = url;
-    return data;
-  }
+  factory Results.fromJson(Map<String, dynamic> json) =>
+      _$ResultsFromJson(json);
 }

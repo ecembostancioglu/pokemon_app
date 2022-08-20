@@ -3,7 +3,6 @@ import 'package:pokemon/data/repository/dio_client.dart';
 import 'package:pokemon/domain/model/pokemon.dart';
 
 class CharacteristicClient extends DioClient {
-
   Future<Iterable<Types>>? getTypes(String url) async {
     Iterable<Types> types = [];
 
@@ -18,5 +17,4 @@ class CharacteristicClient extends DioClient {
     }
     return types;
   }
-
 }
